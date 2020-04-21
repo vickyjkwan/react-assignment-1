@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import UserOutput from './UserOutput/UserOutput'
-import UserInput from './UserInput/UserInput'
+import UserOutput from './UserOutput/UserOutput';
+import UserInput from './UserInput/UserInput';
+import './UserOutput/UserOutput.css';
 
 // 1. Create TWO new components: UserInput and UserOutput
 // 2. UserInput should hold an input element, UserOutput two paragraphs
@@ -18,42 +19,29 @@ import UserInput from './UserInput/UserInput'
 
 class App extends Component {
   state = {
-    persons: [
-      { name: 'Vicky' },
-    ]
+    username: 'Vicky'
   }
 
-  switchNameHandler = (newName) => {
+  inputChangedHandler = (event) => {
     this.setState({
-      persons:[
-        { name: newName }
-      ]
+      username: event.target.value
     })
-  }
-
-  nameChangedHandler =(event) => {
-    this.setState({
-      persons:[
-        { name: event.target.value }
-      ]
-    })
+    console.log(this.state.username)
   }
 
   render() {
     return (
       <div className="App">
         <UserInput 
-          onClick={() => this.switchNameHandler('Kona')}/>
+          changed={this.inputChangedHandler}
+          currentName={this.state.username}/>
         <UserOutput 
-          userName={this.state.persons[0].name}
-          click={this.switchNameHandler.bind(this, 'Kent')}
-          changed={this.nameChangedHandler}/>
-        <UserOutput userName={this.state.persons[0].name}/>
-        <UserOutput userName={this.state.persons[0].name}/>
+          userName={this.state.username}/>
+        <UserOutput userName={this.state.username}/>
+        <UserOutput userName={this.state.username}/>
       </div>
     );
   }
 }
   
-
 export default App;
