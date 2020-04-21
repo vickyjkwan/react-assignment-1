@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import UserOutput from './UserOutput/UserOutput'
+import UserInput from './UserInput/UserInput'
 
 // 1. Create TWO new components: UserInput and UserOutput
 // 2. UserInput should hold an input element, UserOutput two paragraphs
@@ -14,14 +16,44 @@ import './App.css';
 
 
 
-function App() {
-  return (
-    <div className="App">
-      <UserOutput />
-      <UserOutput />
-      <UserOutput />
-    </div>
-  );
+class App extends Component {
+  state = {
+    persons: [
+      { name: 'Vicky' },
+    ]
+  }
+
+  switchNameHandler = (newName) => {
+    this.setState({
+      persons:[
+        { name: newName }
+      ]
+    })
+  }
+
+  nameChangedHandler =(event) => {
+    this.setState({
+      persons:[
+        { name: event.target.value }
+      ]
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <UserInput 
+          onClick={() => this.switchNameHandler('Kona')}/>
+        <UserOutput 
+          userName={this.state.persons[0].name}
+          click={this.switchNameHandler.bind(this, 'Kent')}
+          changed={this.nameChangedHandler}/>
+        <UserOutput userName={this.state.persons[0].name}/>
+        <UserOutput userName={this.state.persons[0].name}/>
+      </div>
+    );
+  }
 }
+  
 
 export default App;
